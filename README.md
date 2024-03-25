@@ -27,9 +27,9 @@ You need to connect your Pi to a network you have access to from your computer i
 
 You may set up a remote desktop using [RealVNC Viewer](https://www.realvnc.com/en/connect/download/viewer/) by searching for your Pi with your IP. Make sure your local computer is on the same LAN with your Pi. Before setting up remote desktop through VNC, you need to enable VNC access in Pi Configuration either through the Pi OS desktop or by SSH-connecting to your Pi:
 ```
-ssh ACB0@*IP_ADDRESS*
+ssh ACB0@IP_ADDRESS
 ```
-Replace `*IP_ADDRESS*` with your IP address. Enter your password when prompted. Then, type in the command line:
+Replace `IP_ADDRESS` with your IP address. Enter your password when prompted. Then, type in the command line:
 ```
 sudo raspi-config
 ```
@@ -39,15 +39,21 @@ Use the arrow and Enter keys to navigate: 3 Interface Options -> I2 VNC and enab
 
 In order to use the audio DAC on the Pi, you need to [configure the audio driver](https://www.inno-maker.com/wp-content/uploads/2022/09/HIFI-DAC-Pro-User-ManualV1.0.pdf) for the device by modifying the config.txt file.
 
-Open the config.txt in a terminal:
+1. Open the config.txt in a terminal:
 ```
 sudo nano /boot/firmware/config.txt
 ```
-Scroll to the bottom of the file and add this as a new line:
+2. Scroll to the bottom of the file and add this as a new line:
 ```
 dtoverlay=allo-katana-dac-audio
 ```
 
+![Alt text](images/image-2.png)
+
+3. Press Ctrl+X to exit nano editor and save the file.
+4. In VNC viewer, right click on the speaker icon and make sure to select the Allo Katana audio output.
+
+![Alt text](image.png)
 
 ### Installing pyBehavior
 
