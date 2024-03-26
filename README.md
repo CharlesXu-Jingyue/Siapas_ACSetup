@@ -118,7 +118,15 @@ Stacking Header | [1979](https://www.adafruit.com/product/1979) | 2x20 Extra Tal
 
 WIP.
 
-### Assembly
+### Assembling the box
+
+### Wiring the electronics
+
+### Building the reward delivery system
+
+### Mounting the camera
+
+### Mounting the speaker
 
 ## Troubleshooting
 
