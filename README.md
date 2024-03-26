@@ -53,7 +53,7 @@ dtoverlay=allo-katana-dac-audio
 3. Press Ctrl+X to exit nano editor and save the file.
 4. In VNC viewer, right click on the speaker icon and make sure to select the Allo Katana audio output.
 
-![Alt text](image.png)
+![Alt text](images/image-3.png)
 
 ### Installing pyBehavior
 
@@ -61,7 +61,7 @@ We will use [pyBehavior](https://github.com/Siapas-Laboratory/pyBehavior) to exe
 
 **Using Conda**
 
-pyBehavior is built in a Conda environment. You can install Conda on your Pi provided by the [Miniforge installer](https://github.com/conda-forge/miniforge). Your Pi should operate on the arm64 architecture so make sure to download the [correct installer](https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-aarch64.sh). Alternatively, you can install Conda in the command line following the instructions. You will be prompted to update your shell profile to automatically initialize conda, and it may be easier to do so. You can undo this by running `conda init --reverse $SHELL`.
+pyBehavior is built in a Conda environment. You can install Conda on your Pi provided by the [Miniforge installer](https://github.com/conda-forge/miniforge). Your Pi should operate on the arm64 architecture so make sure to download the [correct installer](https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-aarch64.sh). Alternatively, you can install Conda in the command line following the instructions. You will be prompted to update your shell profile to automatically initialize conda, and it may be easier to do so. You can undo this by running `conda init --reverse`.
 
 ### Installing ratBerryPi
 
@@ -73,9 +73,32 @@ You will need to configure to Pi
 
 **Note: ```libportaudio``` is not available in the 64-bit RpiOS.**
 
+### Installing rataGUI
+
+[rataGUI](https://github.com/BrainHu42/rataGUI/tree/main) is a customizable Python GUI tool for video tracking and writing using different cameras for animal behavioral experiments.
+
+To install, clone the repository in a new terminal:
+```
+git clone https://github.com/BrainHu42/rataGUI.git
+sudo apt-get install python3-pyqt6 python3-scipy
+pip install darkdetect pyqtconfig pypylon PySpin tensorflow nidaqmx --break-system-packages
+```
+There has been issues with building PyQt6 using pip, so we are choosing a (not ideal) workaround by building and running rataGUI with the system Python.
+
 ### Operation
 
+**rataGUI**
 
+To use rataGUI, navigate to the repository and run:
+```
+conda deactivate
+python -m rataGUI.main
+```
+Run `conda deactivate` to make sure we are using the system Python (not Conda base). This will open a GUI like this:
+
+![Alt text](images/image-4.png)
+
+You only need to select PiCamera under Camera Modules. Also deselect NIDAQmxCounter since we will not need it. For first time usage, you also need to specify the Save Directory and the Session Settings similar to the example.
 
 **GUI Control**
 
@@ -111,7 +134,9 @@ Print circuit board | | | Siapas Lab | 1
 GPIO Expander Bonnet | [4132](https://www.adafruit.com/product/4132) | | Adafruit | 2
 GPIO Ribbon Cable | [1988](https://www.adafruit.com/product/1988) | 40 pins | Adafruit | 4
 Stacking Header | [1979](https://www.adafruit.com/product/1979) | 2x20 Extra Tall Header | Adafruit | 2
-
+Single Schmitt-Trigger Buffer | [SN74LVC1G17](https://www.ti.com/lit/ds/symlink/sn74lvc1g17.pdf) | | Texas Instruments | 1
+Precision Operational Amplifiers | [OP07x](https://www.ti.com/lit/ds/symlink/op07c.pdf) | | Texas Instruments | 1
+Perma-Proto Quarter-sized Breadboard | [1608](https://www.adafruit.com/product/1608) | | Adafruit | 1
 ...
 
 **Head-fixed**
@@ -119,6 +144,12 @@ Stacking Header | [1979](https://www.adafruit.com/product/1979) | 2x20 Extra Tal
 WIP.
 
 ### Assembling the box
+
+1. Cut the all 4 of the 1 1/2' 80/20 rails down by 10 cm using a benchsaw.
+2. Cut 2 of the 2' ABS sheets by 10 cm plus twice the thickness of the 1' ABS sheets (10 cm + 1/8").
+3. Cut the remaining 2' ABS sheet by 8 cm. This piece will be used as the floor piece for the box.
+4. Print out the [lickometer mounting piece](models/LickometerMount%20v3.step), and carve out a 4 × 3 cm rectangle at the center of and 3 cm into the bottom edge of a 1' ABS sheet. This piece will be the lickometer side of wall.
+5. Drill holes for M5 screw clearance centering at 1 cm inside of the edge of the ABS sheets. Make sure the holes on the lickmeter side of the wall and the floor align because they will be connected.
 
 ### Wiring the electronics
 
