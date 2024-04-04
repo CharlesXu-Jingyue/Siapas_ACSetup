@@ -69,9 +69,15 @@ pyBehavior is built in a Conda environment. You can install Conda on your Pi pro
 
 **Installing Blinka**
 
-You will need to configure to Pi 
+You will need to configure your Pi with `adafruit-blinka`:
+```
+cd ~
+pip3 install --upgrade adafruit-python-shell
+wget https://raw.githubusercontent.com/adafruit/Raspberry-Pi-Installer-Scripts/master/raspi-blinka.py
+sudo -E env PATH=$PATH python3 raspi-blinka.py
+```
 
-**Note: ```libportaudio``` is not available in the 64-bit RpiOS.**
+**Note: `libportaudio` is not available in the 64-bit RpiOS.**
 
 ### Installing rataGUI
 
@@ -89,7 +95,7 @@ There has been issues with building PyQt6 using pip, so we are choosing a (not i
 
 **rataGUI**
 
-To use rataGUI, navigate to the repository and run:
+We will use rataGUI to initialize and control our Pi Camera during our experiments by navigating to the repository and run:
 ```
 conda deactivate
 python -m rataGUI.main
@@ -98,11 +104,18 @@ Run `conda deactivate` to make sure we are using the system Python (not Conda ba
 
 ![Alt text](images/image-4.png)
 
-You only need to select PiCamera under Camera Modules. Also deselect NIDAQmxCounter since we will not need it. For first time usage, you also need to specify the Save Directory and the Session Settings similar to the example.
+You only need to select PiCamera under Camera Modules. Also, deselect NIDAQmxCounter since we will not need it. For first time usage, you also need to specify the Save Directory and the Session Settings similar to the example.
 
 **GUI Control**
 
-**Protocols**
+We will need to design (or import) a protocol and a GUI when we want to use pyBehavior to run an experiment for the first time on our Pi. The protocol will be implemented in Python using a [Python State Machine](https://python-statemachine.readthedocs.io/en/latest), which will automatically perform state transitions under specified conditions to facilitate the offline implementation of our experiments. The GUI is used for online control of delivering certain rewards or stimuli and of actuating motors, depending on the design.
+
+To start pyBehavior, navigate to the pyBehavior directory and activate the conda environment:
+```
+conda activate pyBehavior
+python -m pyBehavior.main ~/Dir/protocols
+```
+Replace `~/Dir/protocols` with the directory where you want your protocols to live. Running pyBehavior opens a interface where you can create new or select existing protocols. Creating new generates an empty template for a GUI and a protocol script under your protocol directory. You can then edit these files to design your experimental protocol and GUI as you see fit. Selecting existing protocol files opens your GUI where you can manually start the program by selecting your specific protocol script.
 
 ## Hardware Configuration
 ### Materials
@@ -152,6 +165,10 @@ WIP.
 5. Drill holes for M5 screw clearance centering at 1 cm inside of the edge of the ABS sheets. Make sure the holes on the lickmeter side of the wall and the floor align because they will be connected.
 
 ### Wiring the electronics
+
+**Schmitt trigger**
+
+![Alt text](images/IMG_0606.jpeg)
 
 ### Building the reward delivery system
 
